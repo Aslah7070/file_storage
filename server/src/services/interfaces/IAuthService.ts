@@ -17,4 +17,9 @@ export interface IAuthService {
     refreshToken: string;
      success:boolean
   }>
+  logout(userId:string):Promise<{
+    statuscode:number,
+    message:string,
+    success:boolean
+  }>
 }

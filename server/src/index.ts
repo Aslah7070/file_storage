@@ -1,6 +1,7 @@
 //* libraries and packages
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 dotenv.config();
 import { env } from "./configs/env.configs";
@@ -17,6 +18,7 @@ app.use(
 
 
 app.use(express.json());
+app.use(cookieParser());
 app.use("/api/auth",auth)
 
 app.use(express.urlencoded({ extended: true }));

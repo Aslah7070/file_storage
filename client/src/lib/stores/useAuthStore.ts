@@ -44,7 +44,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     });
     if (result) {
       const {user,token,refreshtoken}=result
-      console.log("object,",result)
+     
           Cookies.set("token", token, { expires: 7 });
         Cookies.set("refreshtoken", refreshtoken, { expires: 7 });
         Cookies.set("user", JSON.stringify(user), { expires: 7 });
@@ -69,16 +69,17 @@ export const useAuthStore = create<AuthState>((set) => ({
           email,
           password,
         });
-        return response.data
+        return response.data.result
 
       });
+      console.log("r",result)
       if (result) {
 
         const { user, token, refreshtoken } = result;
 
 
         localStorage.setItem("user", JSON.stringify(user))
-
+ console.log("object,",result)
         Cookies.set("token", token, { expires: 7 });
         Cookies.set("refreshtoken", refreshtoken, { expires: 7 });
         Cookies.set("user", JSON.stringify(user), { expires: 7 });

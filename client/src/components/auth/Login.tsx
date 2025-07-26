@@ -40,7 +40,7 @@ const Login = () => {
 
       if (result?.success) {
         // complete();
-        router.push("/user/home");
+  
       } else {
         // complete();
       }

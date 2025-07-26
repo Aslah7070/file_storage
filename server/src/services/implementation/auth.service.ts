@@ -53,7 +53,7 @@ export class AuthService {async register(  userData: IUserModel): Promise<{
     );
     if (!refreshToken) throw new Error("refresh token generation failed");
     if (!token) throw new Error("token generation failed");
-
+ 
     return {
          statuscode:201,
         success:true,
@@ -124,4 +124,18 @@ export class AuthService {async register(  userData: IUserModel): Promise<{
       refreshToken,
     };
   }
+
+  async logout(userId:string):Promise<{
+    statuscode:number,
+    message:string,
+    success:boolean
+  }>{
+    return {
+      statuscode: 200,
+      message: "Logout successful",
+      success: true,
+    };
+  }
+
+
 }

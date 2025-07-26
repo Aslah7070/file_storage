@@ -93,13 +93,15 @@ const AuthMiddleware = async (
       next();
     });
   } catch (error) {
-    res.status(500).json({ status: false, message: "Internal server error" });
+    res.status(500).json({ status: false, message: "Internallll server error" });
     return;
   }
 };
 const userAuth = (req: Request, res: Response, next: NextFunction): void => {
   AuthMiddleware(req, res, () => {
     if (req.user) {
+      console.log("user",req.user);
+      
       return next();
     } else {
       console.log(req.user);
