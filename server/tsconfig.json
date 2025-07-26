@@ -9,14 +9,14 @@
     "esModuleInterop": true,
     "paths": {
       "@/*": [
-        "src/*"
+        "*"
       ],
       "shared/*": [
         "../shared/*"
       ],
       "@shared/*": [
         "../shared/types/*"
-      ]
+      ],
     },
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
@@ -34,7 +34,3 @@
     "types"
   ]
 }
-//    "paths": {
-//      "@shared/*": ["../shared/*"],
-//      "@models/*": ["src/models/*"],
-//    },
