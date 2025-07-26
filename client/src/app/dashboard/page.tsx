@@ -1,4 +1,4 @@
-import Home from '@/components/homePage/categories/Home'
+import Home from '@/components/homePage/categories/homs/Home'
 import React from 'react'
 
 

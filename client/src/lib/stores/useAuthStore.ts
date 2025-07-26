@@ -43,7 +43,12 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     });
     if (result) {
-  
+      const {user,token,refreshtoken}=result
+      console.log("object,",result)
+          Cookies.set("token", token, { expires: 7 });
+        Cookies.set("refreshtoken", refreshtoken, { expires: 7 });
+        Cookies.set("user", JSON.stringify(user), { expires: 7 });
+        set({ user, loading: false, isSucces: true });
       return result
     } else {
       set({ error: "Registration failed", loading: false, isSucces: false });

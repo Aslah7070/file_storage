@@ -202,7 +202,7 @@ const Signup = () => {
   if (!isMounted) return null;
 
   return (
-    <div className="min-h-screen bg-[#161616] flex items-center justify-center">
+    <div className=" bg-[#161616] flex items-center justify-center">
       <div className="w-full max-w-md px-6">
         <div className="flex flex-col items-center">
           <h2 className="text-white text-2xl font-semibold">Welcome Back</h2>

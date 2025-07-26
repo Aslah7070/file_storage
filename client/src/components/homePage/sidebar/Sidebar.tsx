@@ -8,7 +8,7 @@ import {
   Clock,
   Home,
 } from 'lucide-react';
-import Homes from '../categories/Home';
+import Homes from '../categories/homs/Home';
 const Sidebar = () => {
 
   return (

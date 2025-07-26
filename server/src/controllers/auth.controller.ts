@@ -15,7 +15,7 @@ export class AuthController implements IAuthController {
        
       const result = await this._authService.register(req.body);
 
-            res.status(result.statuscode).json({success:result.success,message:result.message})
+            res.status(result.statuscode).json({success:result.success,message:result.message,user:result.user,token:result.token,refreshtoken:result.refreshToken})
 
     } catch (error: any) {
       next(error);  

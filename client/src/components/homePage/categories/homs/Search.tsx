@@ -1,21 +1,18 @@
+
+"use client"
+import { Input } from '@/components/ui/input';
 import { Grid3X3, List, Plus } from 'lucide-react'
 import React, { useState } from 'react'
 
 const Search = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [viewMode, setViewMode] = useState('grid');
+ 
   return (
     <div>
        <div className="flex items-center justify-between mb-6 px-5">
-            <div className="relative flex-1 max-w-md">
-              {/* <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" /> */}
-              <input
-                type="text"
-                placeholder="Search files and folders..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+            <div>
+              
             </div>
             <div className="flex items-center space-x-2">
               <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg flex items-center space-x-2 transition-colors">
