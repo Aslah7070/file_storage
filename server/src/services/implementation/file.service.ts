@@ -32,7 +32,7 @@ async uploadFile(userId: string, files: Express.MulterS3.File[]) {
     };
   }
 
-  // Save each file to DB
+
   const savedFiles = await Promise.all(
     files.map(async (file) => {
       const newFile = new File({
@@ -53,6 +53,25 @@ async uploadFile(userId: string, files: Express.MulterS3.File[]) {
     message: "Files uploaded and saved successfully",
     success: true,
     data: savedFiles,
+  };
+}
+
+async findFilesByContentType(userId: string, contentType: string) {
+
+    console.log(typeof contentType)
+    console.log( contentType)
+  const files = await File.find({
+    user: userId,
+    contentType: { $regex: contentType, $options: "i" }, 
+  });
+
+console.log("files",files);
+
+  return {
+    statuscode: 200,
+    message: `Files with contentType: ${contentType}`,
+    success: true,
+    data: files,
   };
 }
 

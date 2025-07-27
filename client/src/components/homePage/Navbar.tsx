@@ -6,9 +6,57 @@ import Signup from "../auth/Signup";
 import { ReusableDialog } from "../ui/modal";
 import Login from "../auth/Login";
 import ReusableMenu from "../ui/dropdown";
+import { FileUpload } from "../ui/file-upload";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useFileStore } from "@/lib/stores/useFileStore";
+import { AuthDialogue } from "../ui/authdialogue";
 
 const Navbar = () => {
   const { user,logoutUser } = useAuthStore();
+  const {uploadFile}=useFileStore()
+const [file, setFile] = useState<File[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
+
+ const [open, setOpen] = useState(false);
+
+
+  const handleSubmitFiles = async() => {
+  // upload logic or form submission
+  console.log("Submitting files:", file);
+    const result= await uploadFile(file[0])
+    console.log("re",result);
+    if(result.sucees){
+       setOpen(false);
+    }
+    
+
+
+};
+const handleFileUpload = (files: File[]) => {
+  setFile(files);
+
+  console.log(files)
+
+  const newPreviews: string[] = [];
+  let loadedCount = 0;
+
+  files.forEach((f, idx) => {
+    const reader = new FileReader(); 
+
+    reader.onloadend = () => {
+      newPreviews[idx] = reader.result as string;
+      loadedCount++;
+
+      if (loadedCount === files.length) {
+        setPreviews(newPreviews); // only set when all loaded
+      }
+    };
+
+    reader.readAsDataURL(f);
+  });
+};
+  
 
   return (
     <div>
@@ -24,9 +72,60 @@ const Navbar = () => {
           {user && (
             <div className="flex items-center space-x-3">
               <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
-                <Upload className="w-4 h-4" />
-                <span>Upload</span>
+                
+              
+                <ReusableDialog
+      open={open}
+      setOpen={setOpen}
+      triggerText={<Upload className="w-4 h-4" />}
+    >
+      <FileUpload onChange={handleFileUpload} />
+
+      {previews.length > 0 && (
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          {previews.map((src, index) => {
+            const fileType = file[index]?.type;
+            return (
+              <div key={index} className="p-2 border rounded relative h-32">
+                {fileType?.startsWith("image/") ? (
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={src}
+                      alt={file[index]?.name || "Preview image"}
+                      layout="fill"
+                      objectFit="cover"
+                      unoptimized
+                    />
+                  </div>
+                ) : fileType?.includes("pdf") ? (
+                  <iframe
+                    src={src}
+                    title={`pdf-${index}`}
+                    className="w-full h-full"
+                  />
+                ) : (
+                  <p className="text-sm text-gray-300">{file[index]?.name}</p>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {previews.length > 0 && (
+        <div className="mt-4 flex justify-end">
+          <button
+            onClick={handleSubmitFiles}
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          >
+            Submit
+          </button>
+        </div>
+      )}
+    </ReusableDialog>
+
               </button>
+          
 
               <ReusableMenu
                 buttonLabel={<User />}
@@ -49,12 +148,12 @@ const Navbar = () => {
           )}
           {!user && (
             <div className="space-x-4">
-              <ReusableDialog triggerText="Login">
+              <AuthDialogue triggerText="Login">
                 <Login />
-              </ReusableDialog>
-              <ReusableDialog triggerText="Signup">
+              </AuthDialogue>
+              <AuthDialogue triggerText="Signup">
                 <Signup />
-              </ReusableDialog>
+              </AuthDialogue>
             </div>
           )}
         </div>

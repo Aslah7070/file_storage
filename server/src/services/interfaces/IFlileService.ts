@@ -12,4 +12,9 @@ export interface IFlieService{
     message:string,
     success:boolean
   }>
+     findFilesByContentType(userId:string,contentType:string):Promise<{
+    statuscode:number,
+    message:string,
+    success:boolean
+  }>
 }

@@ -12,7 +12,7 @@ export class FileController implements IFileController{
   try {
     const userId = req.user?.id; 
     const file = req.file;
-console.log(file,"dilessss")
+
     if (!userId) {
       res.status(401).json({ message: "Unauthorized" });
       return;
@@ -48,6 +48,42 @@ console.log(file,"dilessss")
        res.status(result.statuscode).json({
         success: result.success,
         message: result.message
+      });
+    } catch (err) {
+       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: 'Internal server error',
+        error: err,
+      });
+}
+   }
+
+   async findFilesByContentType(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const userId = req.user?.id;
+    if(!userId){
+        res.status(HttpStatus.UNAUTHORIZED).json({success:false,message:"UnAuthorised"})
+        return
+    }
+    const contentType=req.query.contentType as string
+    console.log(contentType,"content")
+   try {
+      const result = await this._fileService.findFilesByContentType(userId,contentType);
+
+
+      if (!result.success) {
+         res.status(result.statuscode).json({
+          success: false,
+          message: result.message,
+         
+        
+        });
+        return
+      }
+
+       res.status(result.statuscode).json({
+        success: result.success,
+        message: result.message,
+         result:result
       });
     } catch (err) {
        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
