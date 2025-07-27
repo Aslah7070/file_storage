@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.850.0",
+    "aws-sdk": "^2.1692.0",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -7,6 +9,8 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.5",
+    "multer": "^2.0.2",
+    "multer-s3": "^3.0.1",
     "typescript": "^5.8.3"
   },
   "scripts": {
@@ -21,6 +25,8 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.0.0",
+    "@types/multer-s3": "^3.0.3",
     "@types/node": "^24.1.0",
     "i": "^0.3.7",
     "npm": "^11.5.1"

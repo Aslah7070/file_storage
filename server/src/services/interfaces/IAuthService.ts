@@ -22,4 +22,9 @@ export interface IAuthService {
     message:string,
     success:boolean
   }>
+  //  uploadFile(userId:string,files: Express.Multer.File[]):Promise<{
+  //   statuscode:number,
+  //   message:string,
+  //   success:boolean
+  // }>
 }

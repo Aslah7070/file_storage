@@ -21,37 +21,7 @@ export class AuthController implements IAuthController {
           httpOnly: true,
           secure: true,
           maxAge: 7 * 24 * 60 * 60 * 1000,
-          sameSite
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          : "none",
+          sameSite: "none",
         });
       }
 
@@ -118,4 +88,27 @@ export class AuthController implements IAuthController {
       console.log(error);
     }
   }
-}
+//  async uploadFile(req: Request, res: Response, next: NextFunction): Promise<void> {
+//   try {
+//     const userId = req.user?.id; 
+//     const file = req.file;
+// console.log(file,"dilessss")
+//     if (!userId) {
+//       res.status(401).json({ message: "Unauthorized" });
+//       return;
+//     }
+
+//     if (!file) {
+//       res.status(400).json({ message: "No file uploaded" });
+//       return;
+//     }
+
+//     const result = await this._authService.uploadFile(userId, [file]); 
+
+//     res.status(result.statuscode).json(result);
+//   } catch (error) {
+//     next(error); 
+//   }
+// }
+
+} 

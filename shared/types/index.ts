@@ -13,3 +13,18 @@ export interface IUser{
 }
 
  export interface IUserModel extends Document ,Omit<IUser,"_id">{}
+
+
+export interface IFile  {
+ _id:Types.ObjectId,
+  filename: string;
+  originalName: string;
+  size: number;
+  url: string;
+  contentType: string;
+  user: Types.ObjectId;
+  isDeleted: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+

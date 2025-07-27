@@ -1,5 +1,6 @@
 import { AuthController } from "../controllers/auth.controller";
 import { userAuth } from "../middlewares/auth.middleware";
+import { upload } from "../middlewares/file.middleware";
 import { AuthService } from "../services/implementation/auth.service";
 import express from "express"
 
@@ -20,5 +21,6 @@ auth
 .post("/signup",authController.signup.bind(authController))
 .post("/login",authController.login.bind(authController))
 .post("/logout",userAuth,authController.logout.bind(authController))
+// .post("/upload",userAuth,upload.single('image'),authController.uploadFile.bind(authController))
 
 export {auth}

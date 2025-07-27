@@ -8,7 +8,26 @@ import { toObjectId } from "../../utils/objectId.utils";
 import { Types } from "mongoose";
 import { IUser, IUserModel } from "shared/types";
 
-export class AuthService {async register(  userData: IUserModel): Promise<{
+
+
+//  interface file extends Express.Multer.File {
+//   fieldname: string;
+//   originalname: string;
+//   encoding: string;
+//   mimetype: string;
+//   size: number;
+//   bucket: string;
+//   key: string;
+//   acl: string;
+//   contentType: string;
+//   location: string;
+// }
+export class AuthService {
+  
+
+  
+  
+  async register(  userData: IUserModel): Promise<{
     message: string;
     user: IUser;
     token: string;
@@ -130,12 +149,38 @@ export class AuthService {async register(  userData: IUserModel): Promise<{
     message:string,
     success:boolean
   }>{
+
+
+
     return {
       statuscode: 200,
       message: "Logout successful",
       success: true,
     };
   }
+// async uploadFile(userId: string, files: file[]) {
+//   if (!files || files.length === 0) {
+//     return {
+//       statuscode: 400,
+//       message: "No files uploaded",
+//       success: false
+//     };
+//   }
+
+//   const fileUrls = files.map(file => file.location);
+//   console.log("files",fileUrls)
+
+//   return {
+//     statuscode: 200,
+//     message: "Files uploaded successfully",
+//     success: true,
+//     data: {
+//       userId,
+//       fileUrls,
+//     }
+//   };
+// }
+
 
 
 }

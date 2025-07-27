@@ -7,6 +7,7 @@ dotenv.config();
 import { env } from "./configs/env.configs";
 import { connectDb } from "./configs/mongo.config";
 import { auth } from "./routes/auth.routes";
+import { file } from "./routes/file.routes";
 const app = express();
 app.use(
   cors({
@@ -20,6 +21,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/auth",auth)
+app.use("/api/file",file)
 
 app.use(express.urlencoded({ extended: true }));
 
