@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
-const status_constants_1 = require("../constants/status.constants");
 class AuthController {
     constructor(_authService) {
         this._authService = _authService;
@@ -19,7 +18,29 @@ class AuthController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield this._authService.register(req.body);
-                res.status(result.statuscode).json({ success: result.success, message: result.message });
+                if (result.success) {
+                    const token = result.token;
+                    const refreshToken = result.refreshToken;
+                    res.cookie("token", token, {
+                        httpOnly: true,
+                        secure: true,
+                        maxAge: 7 * 24 * 60 * 60 * 1000,
+                        sameSite: "none",
+                    });
+                    res.cookie("refreshToken", refreshToken, {
+                        httpOnly: true,
+                        secure: true,
+                        maxAge: 7 * 24 * 60 * 60 * 1000,
+                        sameSite: "none",
+                    });
+                }
+                res.status(result.statuscode).json({
+                    success: result.success,
+                    message: result.message,
+                    user: result.user,
+                    token: result.token,
+                    refreshtoken: result.refreshToken,
+                });
             }
             catch (error) {
                 next(error);
@@ -30,7 +51,51 @@ class AuthController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield this._authService.login(req.body);
-                res.status(status_constants_1.HttpStatus.OK).json({ success: true, message: "login successfull", result });
+                if (result.success) {
+                    const token = result.token;
+                    const refreshToken = result.refreshToken;
+                    res.cookie("token", token, {
+                        httpOnly: true,
+                        secure: true,
+                        maxAge: 7 * 24 * 60 * 60 * 1000,
+                        sameSite: "none",
+                    });
+                    res.cookie("refreshToken", refreshToken, {
+                        httpOnly: true,
+                        secure: true,
+                        maxAge: 7 * 24 * 60 * 60 * 1000,
+                        sameSite: "none",
+                    });
+                }
+                res
+                    .status(result.statuscode)
+                    .json({ success: result.success, message: result.message, result });
+            }
+            catch (error) {
+                next(error);
+                console.log(error);
+            }
+        });
+    }
+    logout(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var _a;
+            try {
+                const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a._id;
+                const result = yield this._authService.logout(userId);
+                res.clearCookie("accessToken", {
+                    httpOnly: true,
+                    sameSite: "strict",
+                    secure: process.env.NODE_ENV === "production", // true in prod
+                });
+                res.clearCookie("refreshToken", {
+                    httpOnly: true,
+                    sameSite: "strict",
+                    secure: process.env.NODE_ENV === "production",
+                });
+                res
+                    .status(result.statuscode)
+                    .json({ suceess: result.success, message: result.message, result });
             }
             catch (error) {
                 next(error);

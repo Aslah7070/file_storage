@@ -26,12 +26,15 @@ const AuthMiddleware = async (
 ): Promise<void> => {
   try {
     const token: string | undefined = req.cookies?.token;
-
+console.log(" token",token);
     if (!token) {
       const refreshToken = req.cookies?.refreshmentToken;
+      console.log("refresh token",refreshToken);
+      
 
       if (!refreshToken) {
-        throw new Error(HttpResponse.TOKEN_EXPIRED);
+        res.status(HttpStatus.NOT_FOUND).json({success:false,message:HttpResponse.NO_TOKEN})
+        return
       }
 
       const decoded = jwt.verify(
@@ -100,12 +103,9 @@ const AuthMiddleware = async (
 const userAuth = (req: Request, res: Response, next: NextFunction): void => {
   AuthMiddleware(req, res, () => {
     if (req.user) {
-      console.log("user",req.user);
-      
+     
       return next();
     } else {
-      console.log(req.user);
-
       res
         .status(HttpStatus.FORBIDDEN)
         .json({ success: false, message: HttpResponse.UNAUTHORIZED });

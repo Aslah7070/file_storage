@@ -35,6 +35,9 @@ const allowedMimes = [
   'video/webm',
   'video/quicktime'
 ];
+
+console.log(env.AWS_REGION);
+
 const s3 = new S3Client({
   region: env.AWS_REGION,
   credentials: {

@@ -70,13 +70,14 @@ const AuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         });
     }
     catch (error) {
-        res.status(500).json({ status: false, message: "Internal server error" });
+        res.status(500).json({ status: false, message: "Internallll server error" });
         return;
     }
 });
 const userAuth = (req, res, next) => {
     AuthMiddleware(req, res, () => {
         if (req.user) {
+            console.log("user", req.user);
             return next();
         }
         else {

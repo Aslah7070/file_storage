@@ -5,12 +5,12 @@ import { Grid3X3, List, Plus } from 'lucide-react'
 import React, { useState } from 'react'
 
 const Search = () => {
-    const [searchQuery, setSearchQuery] = useState('');
+
     const [viewMode, setViewMode] = useState('grid');
  
   return (
-    <div>
-       <div className="flex items-center justify-between mb-6 px-5">
+    <div className=''>
+       <div className="flex  items-center justify-between mb-6 px-5 00">
             <div>
               
             </div>

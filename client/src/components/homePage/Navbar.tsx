@@ -26,7 +26,10 @@ const [file, setFile] = useState<File[]>([]);
   console.log("Submitting files:", file);
     const result= await uploadFile(file[0])
     console.log("re",result);
-    if(result.sucees){
+   
+    if(result.success){
+      console.log("workking");
+      
        setOpen(false);
     }
     

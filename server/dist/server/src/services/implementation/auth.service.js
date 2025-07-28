@@ -17,6 +17,18 @@ const user_models_1 = __importDefault(require("../../models/user.models"));
 const bcrypt_utils_1 = require("../../utils/bcrypt.utils");
 const generate_token_utils_1 = require("../../utils/generate.token.utils");
 const objectId_utils_1 = require("../../utils/objectId.utils");
+//  interface file extends Express.Multer.File {
+//   fieldname: string;
+//   originalname: string;
+//   encoding: string;
+//   mimetype: string;
+//   size: number;
+//   bucket: string;
+//   key: string;
+//   acl: string;
+//   contentType: string;
+//   location: string;
+// }
 class AuthService {
     register(userData) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -104,6 +116,15 @@ class AuthService {
                 user: user,
                 token,
                 refreshToken,
+            };
+        });
+    }
+    logout(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return {
+                statuscode: 200,
+                message: "Logout successful",
+                success: true,
             };
         });
     }

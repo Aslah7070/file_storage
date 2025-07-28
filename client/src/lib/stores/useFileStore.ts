@@ -1,19 +1,21 @@
 import { create } from "zustand";
 import axiosInstance from "../service/api";
 import handleAsync from "../utils/handlingError";
+import { FileResponse, IFile } from "@/components/types/type";
 
 interface FileState {
-  file: File | null;
+  file: IFile[]
   loading: boolean;
   error: string | null;
   isSucces: boolean;
-
-  uploadFile: (file: File) => Promise<any>;
+ 
+  uploadFile: (file: File) => Promise<FileResponse|null>;
+  findFileByType: (contentType: string) => Promise<FileResponse|null>;
   reset: () => void;
 }
 
 export const useFileStore = create<FileState>((set) => ({
-  file: null,
+  file: [],
   loading: false,
   error: null,
   isSucces: false,
@@ -34,7 +36,7 @@ export const useFileStore = create<FileState>((set) => ({
     });
 
     if (result) {
-      set({ file, loading: false, isSucces: true });
+      set({  loading: false, isSucces: true });
       return result;
     } else {
       set({ loading: false, error: "File upload failed", isSucces: false });
@@ -44,10 +46,42 @@ export const useFileStore = create<FileState>((set) => ({
 
   reset: () => {
     set({
-      file: null,
+      
       loading: false,
       error: null,
       isSucces: false,
     });
   },
+  findFileByType:async(contentType:string)=>{
+    set({
+      loading: false,
+      error: null,
+      isSucces: false,
+    });
+    const resutlt=await handleAsync(async()=>{
+         const response=await axiosInstance.get(`/file/find?contentType=${contentType}`)
+         return response.data
+    })
+
+    if(resutlt){
+      console.log("erre",resutlt.result.data);
+      
+set({
+      file: resutlt.result.data,
+      loading: false,
+      error: null,
+      isSucces: true,
+    });
+
+    return resutlt.data
+    }
+    else{
+set({
+      loading: false,
+      isSucces: false,
+    });
+
+    return null
+    }
+  }
 }));

@@ -57,12 +57,10 @@ async uploadFile(userId: string, files: Express.MulterS3.File[]) {
 }
 
 async findFilesByContentType(userId: string, contentType: string) {
-
-    console.log(typeof contentType)
-    console.log( contentType)
+    const split=contentType.split("/")
   const files = await File.find({
     user: userId,
-    contentType: { $regex: contentType, $options: "i" }, 
+    contentType: { $regex:`^${split[0]}`, $options: "i" }, 
   });
 
 console.log("files",files);
@@ -74,7 +72,7 @@ console.log("files",files);
     data: files,
   };
 }
-
+ 
 async deleteFile(fileId: string) {
 
  const bucketName=env.S3_BUCKET_NAME
@@ -98,6 +96,8 @@ async deleteFile(fileId: string) {
 
     // Extract the S3 key from the URL
     const key = decodeURIComponent(file.url.split('.com/')[1]);
+    console.log("key",key);
+    
 
  
 
